@@ -19,10 +19,11 @@ COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
 
 # Fix permissions for Nginx
 RUN chown -R nginx:nginx /usr/share/nginx/html
-RUN chmod -R 755 /usr/share/nginx/html
+RUN chmod -R 777 /usr/share/nginx/html
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /var/cache/nginx/client_temp
+RUN chmod -R 777 /var/cache/nginx/client_temp
 RUN chown -R nginx:nginx /var/cache/nginx
 # COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
