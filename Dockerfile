@@ -16,8 +16,14 @@ FROM nginx:latest AS ngi
 # Copying compiled code and nginx config to different folder
 # NOTE: This path may change according to your project's output folder 
 COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
+
+# Fix permissions for Nginx
 RUN chown -R nginx:nginx /usr/share/nginx/html
-RUN chown -R 777 /usr/share/nginx/html
+RUN chmod -R 755 /usr/share/nginx/html
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /var/cache/nginx/client_temp
+RUN chown -R nginx:nginx /var/cache/nginx
 # COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
 # the app will be using Port 80 while running
