@@ -19,7 +19,7 @@ RUN apt-get install vim -y
 # NOTE: This path may change according to your project's output folder 
 COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
 
-COPY --from=build /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
 # Fix ermissions for Nginx
 RUN chmod -R 777 /usr/share/nginx/html
 # Create necessary directories with proper permissions
