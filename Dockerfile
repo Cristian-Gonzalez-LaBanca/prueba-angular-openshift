@@ -41,7 +41,7 @@ RUN touch /var/run/nginx.pid \
 # Agregar el usuario nginx al grupo que tiene acceso al puerto 80
 RUN usermod -aG root nginx
 
-COPY ./app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
 # the app will be using Port 80 while running
 EXPOSE 80
