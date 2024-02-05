@@ -15,7 +15,8 @@ RUN npm run build --omit=dev
 FROM nginx:latest AS ngi
 
 USER root
-
+RUN apt-get update -y 
+RUN apt-get install vim -y
 # Copying compiled code and nginx config to different folder
 # NOTE: This path may change according to your project's output folder 
 COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
@@ -40,9 +41,10 @@ RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
 # Agregar el usuario nginx al grupo que tiene acceso al puerto 80
 RUN usermod -aG root nginx
-USER nginx
+
 #COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
 # the app will be using Port 80 while running
-EXPOSE 80
+EXPOSE 8080
+USER nginx
 CMD [ "nginx","-g","daemon off;"]
