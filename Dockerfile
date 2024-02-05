@@ -39,7 +39,7 @@ RUN mkdir -p /var/cache/nginx/proxy_temp && chmod -R 777 /var/cache/nginx/proxy_
 
 
 # Cambiar la configuración de Nginx para escuchar en el puerto 8080
-#RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
+RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
 # Agregar el usuario nginx al grupo que tiene acceso al puerto 80
 RUN usermod -aG root nginx
