@@ -21,7 +21,10 @@ COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
 RUN chmod -R 777 /docker-entrypoint.d/
 RUN chmod -R 777 /usr/share/nginx/html
 # Create necessary directories with proper permissions
+RUN mkdir -p /var/cache/nginx/client_temp
 RUN chmod -R 777 /var/cache/nginx/client_temp
+RUN mkdir -p /var/cache/nginx/proxy_temp
+RUN chmod -R 777 /var/cache/nginx/proxy_temp
 RUN chmod -R 777 /var
 USER nginx
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
