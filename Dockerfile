@@ -5,11 +5,9 @@
 # while generating the docker image
 FROM node:20 AS build
 WORKDIR /app
-COPY package.json ./
-RUN npm install
-COPY . .
-RUN npm run build --omit=dev
-
+COPY . /app/
+RUN npm install 
+RUN npm run build --prod
 ### STAGE 2:RUN ###
 # Defining nginx image to be used
 FROM nginx:latest AS ngi
@@ -36,7 +34,6 @@ RUN mkdir -p /var/run/nginx \
 RUN touch /var/run/nginx.pid \
     && chmod 777 /var/run/nginx.pid
 
-RUN chmod -R 777 /etc/nginx/conf.d/default.conf
 # Cambiar la configuración de Nginx para escuchar en el puerto 8080
 RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
