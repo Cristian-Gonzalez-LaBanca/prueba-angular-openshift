@@ -36,6 +36,7 @@ RUN mkdir -p /var/run/nginx \
 RUN touch /var/run/nginx.pid \
     && chmod 777 /var/run/nginx.pid
 
+RUN chmod 777 /etc/nginx/conf.d/default.conf
 # Cambiar la configuración de Nginx para escuchar en el puerto 8080
 RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
