@@ -30,10 +30,13 @@ RUN chmod -R 777 /var
 # Crear el directorio para el archivo pid y establecer permisos
 RUN mkdir -p /var/run/nginx \
     && chmod -R 777 /var/run/nginx
-
 # Crear un archivo pid personalizado y establecer permisos
 RUN touch /var/run/nginx.pid \
     && chmod 777 /var/run/nginx.pid
+# Crear directorios necesarios con permisos
+RUN mkdir -p /var/cache/nginx/client_temp && chmod -R 777 /var/cache/nginx
+RUN mkdir -p /var/cache/nginx/proxy_temp && chmod -R 777 /var/cache/nginx/proxy_temp
+
 
 # Cambiar la configuración de Nginx para escuchar en el puerto 8080
 #RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
