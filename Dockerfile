@@ -14,11 +14,9 @@ RUN npm run build --omit=dev
 # Defining nginx image to be used
 FROM nginx:latest AS ngi
 # Copying compiled code and nginx config to different folder
-USER root
 # NOTE: This path may change according to your project's output folder 
 COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
 # Fix ermissions for Nginx
-RUN chmod -R 777 /docker-entrypoint.d/
 RUN chmod -R 777 /usr/share/nginx/html
 # Create necessary directories with proper permissions
 RUN mkdir -p /var/cache/nginx/client_temp
@@ -26,7 +24,6 @@ RUN chmod -R 777 /var/cache/nginx/client_temp
 RUN mkdir -p /var/cache/nginx/proxy_temp
 RUN chmod -R 777 /var/cache/nginx/proxy_temp
 RUN chmod -R 777 /var
-USER nginx
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
 # the app will be using Port 80 while running
