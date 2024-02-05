@@ -18,6 +18,8 @@ RUN apt-get install vim -y
 # Copying compiled code and nginx config to different folder
 # NOTE: This path may change according to your project's output folder 
 COPY --from=build /app/dist/prueba-angular /usr/share/nginx/html
+
+COPY --from=build /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
 # Fix ermissions for Nginx
 RUN chmod -R 777 /usr/share/nginx/html
 # Create necessary directories with proper permissions
@@ -35,7 +37,7 @@ RUN touch /var/run/nginx.pid \
     && chmod 777 /var/run/nginx.pid
 
 # Cambiar la configuración de Nginx para escuchar en el puerto 8080
-#RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
+RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
 # Agregar el usuario nginx al grupo que tiene acceso al puerto 80
 RUN usermod -aG root nginx
