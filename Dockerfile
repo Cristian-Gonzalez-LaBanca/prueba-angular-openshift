@@ -41,12 +41,12 @@ RUN mkdir -p /var/cache/nginx/proxy_temp && chmod -R 777 /var/cache/nginx/proxy_
 
 
 # Cambiar la configuración de Nginx para escuchar en el puerto 8080
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
 # Agregar el usuario nginx al grupo que tiene acceso al puerto 80
 RUN usermod -aG root nginx
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
 # the app will be using Port 80 while running
 EXPOSE 80
